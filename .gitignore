@@ -52,3 +52,12 @@ docs/_build/
 
 # PyBuilder
 target/
+
+.DS_Store
+*~
+[#].[#]
+.[#]*
+*[#]
+*.pyc
+
+data/v2/*

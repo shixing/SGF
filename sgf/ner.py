@@ -25,14 +25,21 @@ class NER(Feature):
         sp.call(cmd)
         
         # reformat the output
+        # NER will split the sentence in a different way, so everything is according to words
         ftmp = open(fntmp)
         fout = open(fnout,'w')
-        
-        for line in ftmp:
-            ll = line.split()
-            ner = ' '.join([x.split('/')[-1] for x in ll])
-            fout.write(ner+"\n")
+        fin = open(fnin)
+        for wordsline in fin:
+            ner = []
+            while len(ner) != len(wordsline.split()):
+                if len(ner) > len(wordsline.split()):
+                    raise Exception
+                line = ftmp.readline()
+                ll = line.split()
+                ner += [x.split('/')[-1] for x in ll]
+            fout.write(' '.join(ner)+"\n")
 
+        fin.close()
         ftmp.close()
         fout.close() 
         os.remove(fntmp)
@@ -49,5 +56,6 @@ class NER(Feature):
 
 if __name__ == "__main__":
     ner = NER()
+    #ner.train(128,sys.argv[1])
     ner.train_mpi(sys.argv[1])
     
