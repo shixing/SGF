@@ -6,7 +6,10 @@ from sgf.mpi_framework import mpi_call
 class Feature:
     
     def train_mpi(self,config_fn):
-        mpi_call(config_fn,self)
+        def wrapper_func(mpid,ncore,args):
+            config_fn = args[0]
+            self.train(mpid,config_fn)
+        mpi_call(wrapper_func,(config_fn,))
         
     def train(self,mpid,config_fn):
         pass

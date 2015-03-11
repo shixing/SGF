@@ -1,7 +1,7 @@
 import sys
 from mpi4py import MPI
 
-def mpi_call(config_fn,feature,ncore = None):
+def mpi_call(func,args,ncore=None):
 
     def enum(*sequential, **named):
         """
@@ -35,7 +35,7 @@ def mpi_call(config_fn,feature,ncore = None):
             if tag == tags.READY:
                 # Worker is ready, so send it a task
                 if task_index < ntask:
-                    comm.send((task_index,config_fn), dest=source, tag=tags.START)
+                    comm.send((task_index,ncore,args), dest=source, tag=tags.START)
                     print("Sending task %d to worker %d" % (task_index, source))
                     task_index += 1
                 else:
@@ -60,8 +60,8 @@ def mpi_call(config_fn,feature,ncore = None):
 
             if tag == tags.START:
                 # Do the work here
-                mpid,config_fn = task
-                feature.train(mpid,config_fn)
+                mpid,ncore,args = task
+                func(mpid,ncore,args)
                 result = 0
                 comm.send(result, dest=0, tag=tags.DONE)
             elif tag == tags.EXIT:
