@@ -49,8 +49,8 @@ class WordsAndTags(Feature):
         ftmppos = open(fntmppos)
         for line in ftmppos:
             ll = line.split()
-            words =' '.join(['_'.join(x.split('_')[:-1]) for x in ll])
-            pos = ' '.join([x.split('_')[-1] for x in ll])
+            words =' '.join(['/'.join(x.split('/')[:-1]) for x in ll])
+            pos = ' '.join([x.split('/')[-1] for x in ll])
             fout.write(words+'\n')
             fpos.write(pos+'\n')
         ftmppos.close()

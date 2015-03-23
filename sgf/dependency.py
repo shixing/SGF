@@ -52,6 +52,42 @@ class Dependency(Feature):
         fout.close() 
         os.remove(fntmp)
 
+    def line2DAG(self,line):
+        #build a DAG from line
+        # dag = {(word,index):[(edge,(word,index))]}
+        #
+        # line = "nsubj(love-2,I-1) root(ROOT-0,love-2) dobj(love-2,you-3)"
+
+        dag = {}
+        ll = line.split()
+        def rightdash(s):
+            for i in xrange(len(s)-1,-1,-1):
+                if s[i] == '-':
+                    return i
+        for dep in ll:
+            il,ir,ic = 0,0,0
+            for i in xrange(len(dep)):
+                if dep[i] == '(':
+                    il = i
+                if dep[i] == ')':
+                    ir = i
+                if dep[i] == ',':
+                    ic = i
+            edge = dep[0:il]
+            head = dep[il+1:ic]
+            child = dep[ic+1:ir]
+            ihd = rightdash(head)
+            icd = rightdash(child)
+            hword = head[0:ihd]
+            hindex = head[ihd+1:]
+            cword = child[0:icd]
+            cindex = child[icd+1:]
+            if (hword,hindex) not in dag:
+                dag[(hword,hindex)] = []
+            dag[(hword,hindex)].append((edge,(cword,cindex)))
+        
+        return dag
+
 
 if __name__ == "__main__":
     dep = Dependency()

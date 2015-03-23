@@ -2,6 +2,10 @@ import sys
 from mpi4py import MPI
 
 def mpi_call(func,args,ncore=None):
+    # the func should be in such form:
+    # func(mpid,ncore,args)
+    # where the args are tuples of arguments.
+
 
     def enum(*sequential, **named):
         """

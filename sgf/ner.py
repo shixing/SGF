@@ -19,30 +19,14 @@ class NER(Feature):
             fnout += '.' + str(mpid)
         bash_path = config.get('sgf','ner_sh')
 
-        fntmp = fnout+'.tmp'
-        cmd = 'bash {} {} {}'.format(bash_path,fnin,fntmp)
+        cmd = 'bash {} {} {}'.format(bash_path,fnin,fnout)
         cmd = cmd.split()
         sp.call(cmd)
         
-        # reformat the output
-        # NER will split the sentence in a different way, so everything is according to words
-        ftmp = open(fntmp)
-        fout = open(fnout,'w')
-        fin = open(fnin)
-        for wordsline in fin:
-            ner = []
-            while len(ner) != len(wordsline.split()):
-                if len(ner) > len(wordsline.split()):
-                    raise Exception
-                line = ftmp.readline()
-                ll = line.split()
-                ner += [x.split('/')[-1] for x in ll]
-            fout.write(' '.join(ner)+"\n")
 
         fin.close()
-        ftmp.close()
         fout.close() 
-        os.remove(fntmp)
+
 
 
     

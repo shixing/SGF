@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -l nodes=100:ppn=8
+#PBS -l walltime=72:00:00
+#PBS -q isi
+
+cd /home/nlg-05/xingshi/workspace/misc/SGF
+
+config_file=config/config_hpc3.cfg
+
+#mpiexec python -m sgf.wordsAndTags $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/pos3.log.txt
+mpiexec python -m sgf.ner $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/ner3.log.txt
+mpiexec python -m sgf.dependency $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/dep3.log.txt
+mpiexec python -m sgf.penn $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/penn3.log.txt

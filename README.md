@@ -46,6 +46,9 @@ The big-file is such a big file that you can not process it in a short time. Sup
 		ner/
 			ner.txt.[0-158]
 
+words and pos should have same lines and same number of tokens
+ner and words have same lines and same tokens(Expections: ner may contains 0 token on certain lines)
+
 ### Prerequisite ###
 We need several stanford nlp packages:
 1. Stanford-parser
