@@ -23,12 +23,6 @@ class NER(Feature):
         cmd = cmd.split()
         sp.call(cmd)
         
-
-        fin.close()
-        fout.close() 
-
-
-
     
     def stream(self,fnin):
         # [(word,'O'),(word,'MONEY')]

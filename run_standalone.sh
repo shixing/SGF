@@ -6,4 +6,6 @@ mpiexec -n 4 python -m sgf.ner config/config.cfg
 mpiexec -n 4 python -m sgf.dependency config/config.cfg
 # constitutional parsing
 mpiexec -n 4 python -m sgf.penn config/config.cfg
+# mwe identification 
+mpiexec -n 4 python -m sgf.mwe config/config.cfg
 

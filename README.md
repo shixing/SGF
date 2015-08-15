@@ -11,6 +11,7 @@ This package allow you to extract NLP features from some really big files using 
 4. Dependency Parsing
 5. Constitutional Parsing
 6. Named Entity Recognition
+7. Multi-word Predicate Identification (accroding to a mwe list)
 
 ### Pipeline Overview ###
 Suppose you have the following directory structure:
@@ -69,6 +70,9 @@ Run on a HPC cluster with PBS
 
 ### Speed ###
 The slowest part is Dependency parsing: about 1.4 sentence / second on a single core. 
+
+### Python Code
+There are two base classes: `Feature` and `Resourch`
 
 
 ### Question###

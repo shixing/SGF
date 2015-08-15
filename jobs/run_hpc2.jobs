@@ -1,13 +1,14 @@
 #!/bin/bash
 #PBS -l nodes=20:ppn=8
-#PBS -l walltime=12:00:00
+#PBS -l walltime=1:00:00
 #PBS -q isi
 
 cd /home/nlg-05/xingshi/workspace/misc/SGF
 
 config_file=config/config_hpc2.cfg
 
-mpiexec python -m sgf.wordsAndTags $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/pos2.log.txt
-mpiexec python -m sgf.ner $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/ner2.log.txt
-mpiexec python -m sgf.dependency $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/dep2.log.txt
-mpiexec python -m sgf.penn $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/penn2.log.txt
+#mpiexec python -m sgf.wordsAndTags $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/pos2.log.txt
+#mpiexec python -m sgf.ner $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/ner2.log.txt
+#mpiexec python -m sgf.dependency $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/dep2.log.txt
+#mpiexec python -m sgf.penn $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/penn2.log.txt
+mpiexec python -m sgf.mwe $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/mwe2.log.txt
