@@ -1,8 +1,17 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
-# usage: bash pos.sh input_file outputFile 
-#  e.g., ./stanford-postagger.sh models/english-left3words-distsim.tagger sample-input.txt
+# Runs the English POS Tagger, suppose the sentence is not tokenized, sentence is seperated by newline
+
+if [ ! $# -ge 1 ]; then
+  echo Usage: `basename $0` 'file(s)'
+  echo
+  exit
+fi
 
 scriptdir=`dirname $0`
 
-java -mx2048m -cp $scriptdir/stanford-postagger.jar:$scriptdir POS $scriptdir/models/english-bidirectional-distsim.tagger $1 50 >$2
+
+
+java -mx2048m -cp "$scriptdir/*:" edu.stanford.nlp.tagger.maxent.MaxentTagger -model $scriptdir/models/english-bidirectional-distsim.tagger \
+ -tokenizerOptions americanize=false -outputFormat tsv -sentenceDelimiter newline -textFile  $1 > $2
+

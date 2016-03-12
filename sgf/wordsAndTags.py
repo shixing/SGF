@@ -1,7 +1,8 @@
 # Split a big file into multiple files:
 #       tokenize
-#       split sentences
+#       each line is a sentence
 #       POS tags
+#       
 # Output:
 #       One sentence per line. 
 
@@ -47,15 +48,26 @@ class WordsAndTags(Feature):
         fout = open(fnout,'w')
         fpos = open(posout,'w')
         ftmppos = open(fntmppos)
-        for line in ftmppos:
-            ll = line.split()
-            words =' '.join(['/'.join(x.split('/')[:-1]) for x in ll])
-            pos = ' '.join([x.split('/')[-1] for x in ll])
-            fout.write(words+'\n')
-            fpos.write(pos+'\n')
+        words = []
+        pos = []
+        while True:
+            line = ftmppos.readline()
+            if not line:
+                break
+            if line.strip() == '':
+                fout.write(' '.join(words)+"\n")
+                fpos.write(' '.join(pos)+"\n")
+                words = []
+                pos = []
+            else:
+                ll = line.strip().split()
+                words.append(ll[0])
+                pos.append(ll[1])
+                
         ftmppos.close()
         os.remove(fntmppos)
-
+        fout.close()
+        fpos.close()
     
     def stream(self,fnin):
         fin = open(fnin)

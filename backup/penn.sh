@@ -10,5 +10,4 @@ fi
 
 scriptdir=`dirname $0`
 
-java -mx2048m -cp "$scriptdir/*:" edu.stanford.nlp.parser.lexparser.LexicalizedParser \
- -maxlength 50 -tokenized -outputFormat "oneline" edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz $1 > $2
+java -mx2048m -cp "$scriptdir/*:" edu.stanford.nlp.parser.lexparser.LexicalizedParser -sentences newline -maxlength 50 -tokenized -outputFormat "oneline" edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz $1 > $2

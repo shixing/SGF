@@ -47,8 +47,14 @@ The big-file is such a big file that you can not process it in a short time. Sup
 		ner/
 			ner.txt.[0-158]
 
-words and pos should have same lines and same number of tokens
-ner and words have same lines and same tokens(Expections: ner may contains 0 token on certain lines)
+The pipeline will first split **big-file** into *$npid* parts.
+
+If you choose **pos_corpus.sh**, the **big-file** is treated as untokenzied, un-sentence-split corpus, the **pos_corpus.sh** will split paragraphs into sentences and then tokenize it.
+
+If you choose **pos.sh**, the **big-file** is treated as untokenzied, sentence-split corpus, each line is treated as a sentence. **pos.sh** will just tokenize each line.
+
+Every other features will use words.txt.[0-158] directly without tokenization. 
+
 
 ### Prerequisite ###
 We need several stanford nlp packages:
@@ -58,9 +64,29 @@ We need several stanford nlp packages:
 4. mpi4py
 5. multiple machines with multicores.
 
-Once you have those Stanford packages installed, copy those *.sh in **/sh_backup/** to corresponding Stanford packages folders. Then config the corresponding path in **config.cfg** file
-
 ### How to Run ###
+copy **ner.sh** stanford-ner/
+
+copy **NER.java** stanford-ner/
+
+compile **NER.java** by
+
+'''
+javac -cp stanford-ner.jar NER.java
+'''
+
+copy **pos.sh** stanford-postagger/
+copy **pos_corpus.sh** stanford-postagger/
+
+copy **POS.java** stanford-postagger/
+
+compile **POS.java** by
+
+'''
+javac -cp stanford-postagger.jar POS.java
+'''
+copy **penn.sh** and **dep.sh** stanford-parser/
+
 Run on a single machine with 4 cores:
 
     $ bash run_standalone.sh
@@ -74,6 +100,17 @@ The slowest part is Dependency parsing: about 1.4 sentence / second on a single 
 ### Python Code
 There are two base classes: `Feature` and `Resourch`
 
+#### sgf/merge.py
+usages: merge.py <folder> <prefix> <number of parts>
+'''
+$ cd sgf/
+$ python merge.py ../data/v5/words/ words.txt 159
+'''
+It will generate ../data/v5/words/words.txt. 
+
+#### sgf/invalid.py
+usages: invalid.py <original file> <merged tokenized file> <invalid list file>
+It will compare each line between <original file> and <merged tokenized file>, if they have the same number of words, print 1 into <invalid list file>, otherwise print 0.
 
 ### Question###
 contact me: Xing Shi (xingshi@usc.edu)
