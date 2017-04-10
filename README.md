@@ -1,5 +1,5 @@
 # SGF
-Stanford NLP feature General Framework in python and MPI
+NLP feature General Framework in python and MPI
 
 ## Description ##
 This package allow you to extract NLP features from some really big files using multiple machine and multiple cores
@@ -8,10 +8,15 @@ This package allow you to extract NLP features from some really big files using 
 1. Word Tokenize
 2. Sentence Split
 3. Part-of-Speech Tagging
-4. Dependency Parsing
-5. Constitutional Parsing
+4. Dependency Parsing (Stanford)
+5. Constitutional Parsing (Stanford)
 6. Named Entity Recognition
 7. Multi-word Predicate Identification (accroding to a mwe list)
+
+### Supported Corpus Reader ###
+1. Treebank
+2. English Web Treebank
+3. The Treebank of Ontonotes
 
 ### Pipeline Overview ###
 Suppose you have the following directory structure:

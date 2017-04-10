@@ -1,4 +1,4 @@
-# The PENN feature: constituional parser tree
+# The PENN feature: constituional parser tree using stanford parser
 
 from sgf.feature import Feature
 import subprocess as sp

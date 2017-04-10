@@ -1,0 +1,16 @@
+#!/bin/bash
+#PBS -l nodes=100:ppn=8
+#PBS -l walltime=10:00:00
+#PBS -q isi
+
+cd /home/nlg-05/xingshi/workspace/misc/SGF
+
+config_file=config/config_hpc_8m.cfg
+id=8m
+
+mpiexec python -m sgf.splitFile $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/split_$id.log.txt
+
+#mpiexec python -m sgf.ner $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/ner_$id.log.txt
+#mpiexec python -m sgf.dependency $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/dep_$id.log.txt
+mpiexec python -m sgf.penn $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/penn_$id.log.txt
+#mpiexec python -m sgf.mwe $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/mwe_$id.log.txt

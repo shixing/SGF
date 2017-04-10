@@ -1,0 +1,27 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=12
+#PBS -l walltime=1:00:00
+#PBS -q isi
+
+cd /home/nlg-05/xingshi/workspace/misc/SGF
+
+N_CHILD=11
+id=eng_jpn_test
+config_file=config/config_hpc_${id}.cfg
+
+DATA=/home/nlg-05/xingshi/workspace/misc/SGF/data
+
+mkdir ${DATA}/$id
+
+
+mkdir ${DATA}/${id}/words
+mpiexec python -m sgf.splitFile $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/split_$id.log.txt
+python -m sgf.merge ${DATA}/${id}/words/ words.txt ${N_CHILD}
+#mpiexec python -m sgf.wordsAndTags $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/pos_$id.log.txt
+#mpiexec python -m sgf.ner $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/ner_$id.log.txt
+#mpiexec python -m sgf.dependency $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/dep_$id.log.txt
+
+mkdir ${DATA}/${id}/penn
+mpiexec python -m sgf.penn $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/penn_$id.log.txt
+python -m sgf.merge ${DATA}/${id}/penn/ penn.txt ${N_CHILD}
+#mpiexec python -m sgf.mwe $config_file &> /home/nlg-05/xingshi/workspace/misc/SGF/jobs/mwe_$id.log.txt
